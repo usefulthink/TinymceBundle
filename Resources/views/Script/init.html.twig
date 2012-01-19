@@ -19,6 +19,9 @@
             // workaround for an incompatibility with html5-validation (see: http://git.io/CMKJTw)
             if($textarea.is('[required]')) {
                 options.oninit = function(editor) {
+                    // another workaround since tinyMCE has problems with
+                    // reliably firing the change-event in firefox
+                    editor.onKeyPress.add(function(ed, l) { ed.save(); });
                     editor.onChange.add(function(ed, l) { ed.save(); });
                 };
             }
